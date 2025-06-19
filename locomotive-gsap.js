@@ -1,6 +1,5 @@
 gsap.registerPlugin(ScrollTrigger);
 
-
 const locoScroll = new LocomotiveScroll({
   el: document.querySelector("#main_container"),
   smooth: true
@@ -17,20 +16,6 @@ ScrollTrigger.scrollerProxy("#main_container", {
   pinType: document.querySelector("#main_container").style.transform ? "transform" : "fixed"
 });
 
-
 ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
-
 ScrollTrigger.refresh();
 
-
-
-
-
-
-    
-
-  
-const scroll = new LocomotiveScroll({
-    el: document.querySelector('#main_container'),
-    smooth: true,
-});

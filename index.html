@@ -14,35 +14,52 @@
     <script src="https://kit.fontawesome.com/e6d90fcee8.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./style.css" />
 </head>
-
+l
 <body>
     <div id="main_container">
         <div class="container">
             <div class="header">
-                <ul class="nav_opt smee">
+                <ul class="nav_opt smee header">
                     <li>Collection</li>
                     <li>About</li>
                 </ul>
                 <p class="LOGO smee">GAUCHER</p>
-                <ul class="nav_opt smee">
+                <ul class="nav_opt smee header">
                     <li>Search</li>
                     <li>Cart</li>
                 </ul>
             </div>
             <div class="body">
                 <div class="boxes top">
-                    <div class="first imgs">
-                        <img src="img/top (3).jpg" alt="">
+                    <div id="folll" class="first imgs">
+                        <img id="mainimg_1" src="img/top (3).jpg" alt="">
                     </div>
-                    <div class="mid imgs">
-                        <img src="img/top (2).jpg" alt="">
+                    <div id="folll"  class="mid imgs">
+                        <img id="mainimg_1" src="img/top (2).jpg" alt="">
                     </div>
-                    <div class="last imgs">
-                        <img src="img/Downloader-La-834086.jpg" alt="">
+                    <div id="folll"  class="last imgs">
+                        <img id="mainimg_1" src="img/Downloader-La-834086.jpg" alt="">
                     </div>
                 </div>
                 <div class="boxes bottom">
-                    <div class="txt maintxt">GAUCHER</div>
+                    <div class="txt maintxt" id="liquid-text-container">
+                      <svg id="liquid-text-svg" viewBox="0 0 1200 350" width="100%" height="100%" style="overflow:visible">
+                        <defs>
+                          <linearGradient id="liquid-gradient" x1="0%" y1="100%" x2="0%" y2="0%">
+                            <stop offset="0%" stop-color="#000" />
+                            <stop offset="100%" stop-color="#222" />
+                          </linearGradient>
+                          <clipPath id="liquid-clip">
+                            <text id="liquid-text" x="50%" y="70%" text-anchor="middle" font-family="'Fjalla One', sans-serif" font-size="360" font-weight="900" letter-spacing="-5" >GAUCHER</text>
+                          </clipPath>
+                        </defs>
+                        <g clip-path="url(#liquid-clip)">
+                          <path id="liquid-fill-path" fill="url(#liquid-gradient)" />
+                        </g>
+                        <text x="50%" y="70%" text-anchor="middle" font-family="'Fjalla One', sans-serif" font-size="360" font-weight="900" letter-spacing="-5" fill="none" stroke="rgba(0,0,0,0.10)" stroke-width="1">GAUCHER</text>
+                      </svg>
+                    </div>
+
                     <p>Learn More <i class="fa-solid fa-arrow-right"></i></p>
                     <div class="txt subtxt">
                         <p>CLEAM-DOT TMURDING</p>
@@ -77,10 +94,10 @@
             <p class="para">Years of Work! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Distinctio
                 temporibus reiciendis esse magnam consequatur impedit aspernatur saepe assumenda in aperiam!</p>
             <div class="display_img">
-                <div class="dis_o"></div>
-                <div class="dis_o1"></div>
-                <div class="dis_x"></div>
-                <div class="dis_x1"></div>
+                <div class="dis_o" data-scroll data-scroll-speed="2"></div>
+                <div class="dis_o1" data-scroll data-scroll-speed="-1"></div>
+                <div class="dis_x" data-scroll data-scroll-speed="1.5"></div>
+                <div class="dis_x1" data-scroll data-scroll-speed="-2"></div>
             </div>
         </div>
         <div class="container_frth">
@@ -124,7 +141,7 @@
                     <p class="description">the fall 2024 is focusing on modern femninity <br /> Lorem ipsum dolor, sit
                         amet consectetur adipisicing elit. Illo, voluptate!</p>
                     <div>
-                        <img src="img/frame_3.jpg" alt="" />
+                        <img src="./img/about-2.jpg" alt="" />
                     </div>
                 </div>
             </div>
@@ -132,16 +149,16 @@
         <div class="container_fifth">
             <div class="subb_container">
                 <h1>TIMELESS</h1>
-                <div class="imgcct img_c1">
+                <div class="imgcct img_c1" data-scroll data-scroll-speed="2">
                     <img src="img/frames_1.jpg" alt="" />
                 </div>
-                <div class="imgcct img_c2">
+                <div class="imgcct img_c2" data-scroll data-scroll-speed="-1.5">
                     <img src="img/frames_2.jpg" alt="" />
                 </div>
-                <div class="imgcct img_c3">
+                <div class="imgcct img_c3" data-scroll data-scroll-speed="1.2">
                     <img src="img/frame_3.jpg" alt="" />
                 </div>
-                <div class="imgcct img_c4">
+                <div class="imgcct img_c4" data-scroll data-scroll-speed="-2">
                     <img src="img/frame_7.jpg" alt="" />
                 </div>
             </div>
@@ -211,9 +228,11 @@
         </div>
     </div>
 
-    <div class="circle" id="circle"></div>
+    <div class="circle" id="circle">
+          <!-- <div class="rotating-text">GAUCHER</div> -->
+    </div>
+    
 
-    <script src="https://kit.fontawesome.com/e6d90fcee8.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"
         integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -221,8 +240,11 @@
         integrity="sha512-P2IDYZfqSwjcSjX0BKeNhwRUH8zRPGlgcWl5n6gBLzdi4Y5/0O4zaXrtO4K9TZK6Hn1BenYpKowuCavNandERg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
-    <!-- <script src="locomotive-gsap.js"></script> -->
+    <script src="locomotive-gsap.js"></script>
     <script src="./main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+    <script src="./hoveer.js"></script>
+    <script src="https://kit.fontawesome.com/e6d90fcee8.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
