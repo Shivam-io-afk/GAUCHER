@@ -33,4 +33,4 @@ document.addEventListener('mouseleave', (e) => {
 
 
 
-animate(); 
+// animate(); 

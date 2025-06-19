@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* user-select: none; */
+    user-select: none;
 }
 
 :root {
@@ -11,9 +11,7 @@
     --font_thrd: "Oswald", sans-serif;
 }
 
-body{
-    /* cursor: none !important;x */
-}
+
 
 
 .circle {
@@ -846,7 +844,6 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid red;
     margin: 50px 0;
 }
 
@@ -880,12 +877,44 @@ body{
     position: relative;
     height: 100%;
     width: 30%;
-    border: 1px solid blue;
+    display: flex;
+    justify-content: space-between;
+}
+.container_svnth .right .socialicons{
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
+.container_svnth .right .socialicons i{
+    transform: scale(1.15);
+    margin: 8px 0;
+    cursor: pointer;
+}
 
+.container_svnth .right .socialicons i:hover{
+    color: #999;
+}
 
+.container_svnth .right .imglib{
+    width: calc(100% - 20%);
+    overflow: hidden;
+}
 
+.container_svnth .right .imglib img{
+    height: 100%;
+    width: calc(100/3%);
+    object-fit: contain;
+    filter: grayscale(1);
+    float: right;
+    margin: 0 5px;
+}
+
+.container_svnth .right .imglib img:nth-child(1){
+    margin: 0 !important;
+}
 
 
 
@@ -905,6 +934,7 @@ body{
     height: 400px;
     width: 95%;
     overflow: hidden;
+    
 }
 
 .last_container .subla {
@@ -932,4 +962,6 @@ body{
     font-size: 410px;
     text-align: center;
     font-family: var(--font_secnd);
+    pointer-events: none;
+    user-select: none;
 }
