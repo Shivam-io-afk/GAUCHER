@@ -40,61 +40,10 @@ window.addEventListener('DOMContentLoaded', function() {
   console.log('DOMContentLoaded');
   console.log('gsap:', typeof gsap !== 'undefined');
   console.log('ScrollTrigger:', typeof ScrollTrigger !== 'undefined');
-  const path = document.getElementById('liquid-fill-path');
-  console.log('liquid-fill-path found:', !!path);
-  if (window.gsap && window.ScrollTrigger && path) {
-    const width = 1200;
-    const height = 350;
-    const waveHeight = 30;
-    const waveLength = 300;
-    const points = 40;
-
-    let fillProgress = 0; // 0 to 1
-    let targetFillProgress = 0; // For smooth interpolation
-    let phase = 0;
-
-    function getWavePath(fillLevel, phase) {
-      let d = `M0,${height} L0,${fillLevel}`;
-      for (let i = 0; i <= points; i++) {
-        const x = (i / points) * width;
-        const theta = (i / points) * Math.PI * 2 * (width / waveLength) + phase;
-        const y = fillLevel - Math.sin(theta) * waveHeight;
-        d += ` L${x},${y}`;
-      }
-      d += ` L${width},${height} Z`;
-      return d;
-    }
-
-    // Initial state
-    path.setAttribute('d', getWavePath(height, 0));
-
-    // Animate fill level with ScrollTrigger
-    gsap.to({progress: 0}, {
-      progress: 1,
-      scrollTrigger: {
-        trigger: '#liquid-text-container',
-        start: 'top 80%',
-        end: 'top 30%',
-        scrub: 1,
-        scroller: document.querySelector('#main_container'),
-        onUpdate: self => {
-          targetFillProgress = self.progress;
-        }
-      }
-    });
-
-    // Animate the wave phase and smooth fill
-    function animateWave() {
-      fillProgress += (targetFillProgress - fillProgress) * 0.08; // Smooth interpolation
-      phase += 0.01; // Constant slow speed, always animating
-      const fillLevel = height - fillProgress * height;
-      path.setAttribute('d', getWavePath(fillLevel, phase));
-      requestAnimationFrame(animateWave);
-    }
-    animateWave();
-  } else {
-    console.warn('GSAP, ScrollTrigger, or path not found!');
-  }
+  
+  // Initialize both GAUCHER text animations
+  animateMainGaucherText();
+  animateFooterGaucherText();
 
   // Animate section titles: NEW ARRIVALS, ABOUT US, COLLECTIONS
   function animateSectionTitle(selector) {
@@ -137,6 +86,93 @@ window.addEventListener('DOMContentLoaded', function() {
   animateSectionTitle('.container_thrd .head_tw'); // ABOUT US
   animateSectionTitle('.container_frth .head_tw'); // COLLECTIONS
   animateSectionTitle('.container_sixx .head_tw'); // SUBSCRIBE TO NEWSLETTER
+
+  // Animate h2 in .infoo with wavy effect
+  function animateInfooH2Wavy() {
+    const h2 = document.querySelector('.container_sixx .infoo .head_tw');
+    if (!h2) return;
+    
+    const text = h2.textContent;
+    h2.innerHTML = '';
+    text.split('').forEach((char, i) => {
+      if (char === ' ') {
+        h2.appendChild(document.createTextNode(' '));
+        return;
+      }
+      const span = document.createElement('span');
+      span.textContent = char;
+      span.style.display = 'inline-block';
+      span.style.opacity = 0;
+      span.style.transform = 'translateY(20px) rotateX(90deg)';
+      h2.appendChild(span);
+    });
+    
+    const spans = h2.querySelectorAll('span');
+    gsap.to(spans, {
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      ease: 'back.out(1.7)',
+      stagger: 0.04,
+      duration: 0.5,
+      scrollTrigger: {
+        trigger: h2,
+        start: 'top 80%',
+        scroller: document.querySelector('#main_container'),
+        once: true
+      }
+    });
+  }
+
+  // Call the wavy animation for h2
+  animateInfooH2Wavy();
+
+  // Animate paragraph text in .infoo with a different effect
+  function animateInfooParagraph() {
+    const paragraph = document.querySelector('.container_sixx .infoo .head_tw_p');
+    if (!paragraph) {
+      console.log('Paragraph not found');
+      return;
+    }
+    
+    const text = paragraph.textContent;
+    paragraph.innerHTML = '';
+    paragraph.style.opacity = 0;
+
+    function runTypewriter() {
+      let currentIndex = 0;
+      const typewriterInterval = setInterval(() => {
+        if (currentIndex < text.length) {
+          paragraph.innerHTML += text[currentIndex];
+          currentIndex++;
+        } else {
+          clearInterval(typewriterInterval);
+          // Fade in the entire paragraph after typewriter effect
+          gsap.to(paragraph, {
+            opacity: 1,
+            duration: 0.5,
+            ease: 'power2.out'
+          });
+        }
+      }, 50); // Speed of typewriter effect
+    }
+
+    // Use GSAP ScrollTrigger to run typewriter when in view
+    gsap.to(paragraph, {
+      opacity: 1,
+      duration: 0.1,
+      scrollTrigger: {
+        trigger: paragraph,
+        start: 'top 80%',
+        scroller: document.querySelector('#main_container'),
+        once: true,
+        onEnter: runTypewriter
+      }
+    });
+  }
+
+  // Call the new animation function
+  animateInfooParagraph();
 
   // Animate TIMELESS text with a wavy reveal effect
   function animateTimelessWavy() {
@@ -438,4 +474,373 @@ window.addEventListener('DOMContentLoaded', function() {
 
   animateCollectionsTitleFlip();
   animateCollectionsListingsFlip();
+
+  // --- CONTAINER_SVNTH (Footer Section) - Particle/Background Effects ---
+  
+  // 1. Create floating particles system
+  function createFooterParticles() {
+    const footer = document.querySelector('.container_svnth');
+    if (!footer) return;
+    
+    // Create particle container
+    const particleContainer = document.createElement('div');
+    particleContainer.style.position = 'absolute';
+    particleContainer.style.top = '0';
+    particleContainer.style.left = '0';
+    particleContainer.style.width = '100%';
+    particleContainer.style.height = '100%';
+    particleContainer.style.pointerEvents = 'none';
+    particleContainer.style.zIndex = '1';
+    particleContainer.style.overflow = 'hidden';
+    footer.style.position = 'relative';
+    footer.appendChild(particleContainer);
+    
+    // Create particles
+    for (let i = 0; i < 15; i++) {
+      const particle = document.createElement('div');
+      particle.style.position = 'absolute';
+      particle.style.width = Math.random() * 3 + 1 + 'px';
+      particle.style.height = particle.style.width;
+      particle.style.background = 'rgba(255, 255, 255, 0.3)';
+      particle.style.borderRadius = '50%';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.top = Math.random() * 100 + '%';
+      particle.style.opacity = Math.random() * 0.5 + 0.1;
+      particleContainer.appendChild(particle);
+      
+      // Animate each particle
+      gsap.to(particle, {
+        y: -100,
+        x: Math.random() * 50 - 25,
+        opacity: 0,
+        duration: Math.random() * 10 + 10,
+        ease: 'none',
+        repeat: -1,
+        delay: Math.random() * 5
+      });
+    }
+  }
+  
+  // 2. Ambient background pattern animation
+  function animateFooterBackgroundPattern() {
+    const footer = document.querySelector('.container_svnth');
+    if (!footer) return;
+    
+    // Create animated background pattern
+    const bgPattern = document.createElement('div');
+    bgPattern.style.position = 'absolute';
+    bgPattern.style.top = '0';
+    bgPattern.style.left = '0';
+    bgPattern.style.width = '100%';
+    bgPattern.style.height = '100%';
+    bgPattern.style.background = `
+      radial-gradient(circle at 20% 80%, rgba(255,255,255,0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255,255,255,0.02) 0%, transparent 50%),
+      linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.01) 50%, transparent 60%)
+    `;
+    bgPattern.style.pointerEvents = 'none';
+    bgPattern.style.zIndex = '-1';
+    footer.appendChild(bgPattern);
+    
+    // Animate background pattern
+    gsap.to(bgPattern, {
+      backgroundPosition: '100% 100%',
+      duration: 20,
+      ease: 'none',
+      repeat: -1,
+      yoyo: true
+    });
+  }
+  
+  // 3. Subtle glow effects for social icons
+  function addSocialIconsGlow() {
+    const socialIcons = document.querySelectorAll('.container_svnth .socialicons i');
+    
+    socialIcons.forEach((icon, index) => {
+      // Add glow effect
+      gsap.set(icon, { 
+        filter: 'drop-shadow(0 0 0px rgba(255,255,255,0))',
+        transition: 'all 0.3s ease'
+      });
+      
+      // Subtle floating animation
+      gsap.to(icon, {
+        y: -5,
+        duration: 2 + index * 0.5,
+        ease: 'power1.inOut',
+        repeat: -1,
+        yoyo: true,
+        delay: index * 0.3
+      });
+      
+      // Enhanced hover with glow
+      icon.addEventListener('mouseenter', () => {
+        gsap.to(icon, {
+          scale: 1.2,
+          filter: 'drop-shadow(0 0 15px rgba(255,255,255,0.6)) brightness(1.3)',
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      });
+      
+      icon.addEventListener('mouseleave', () => {
+        gsap.to(icon, {
+          scale: 1,
+          filter: 'drop-shadow(0 0 0px rgba(255,255,255,0)) brightness(1)',
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      });
+    });
+  }
+  
+  // 4. Navigation links with ambient effects
+  function addNavigationAmbientEffects() {
+    const navLinks = document.querySelectorAll('.container_svnth .left li');
+    
+    navLinks.forEach((link, index) => {
+      // Subtle ambient animation
+      gsap.to(link, {
+        opacity: 0.8,
+        duration: 2 + index * 0.3,
+        ease: 'power1.inOut',
+        repeat: -1,
+        yoyo: true,
+        delay: index * 0.2
+      });
+      
+      // Enhanced hover with ambient glow
+      link.addEventListener('mouseenter', () => {
+        gsap.to(link, {
+          opacity: 1,
+          scale: 1.05,
+          filter: 'brightness(1.2) drop-shadow(0 0 10px rgba(255,255,255,0.4))',
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      });
+      
+      link.addEventListener('mouseleave', () => {
+        gsap.to(link, {
+          opacity: 0.8,
+          scale: 1,
+          filter: 'brightness(1) drop-shadow(0 0 0px rgba(255,255,255,0))',
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      });
+    });
+  }
+  
+  // 5. Subtle section entrance with particle reveal
+  function animateFooterEntrance() {
+    const footer = document.querySelector('.container_svnth');
+    if (!footer) return;
+    
+    gsap.set(footer, { opacity: 0, y: 30 });
+    gsap.to(footer, {
+      opacity: 1,
+      y: 0,
+      duration: 1.5,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: footer,
+        start: 'top 85%',
+        scroller: document.querySelector('#main_container'),
+        once: true
+      }
+    });
+  }
+  
+  // Initialize particle and background effects
+  function initFooterParticleEffects() {
+    createFooterParticles();
+    animateFooterBackgroundPattern();
+    addSocialIconsGlow();
+    addNavigationAmbientEffects();
+    animateFooterEntrance();
+  }
+  
+  initFooterParticleEffects();
+});
+
+// Main GAUCHER text animation function
+function animateMainGaucherText() {
+  const path = document.getElementById('liquid-fill-path');
+  console.log('main liquid-fill-path found:', !!path);
+  
+  if (window.gsap && window.ScrollTrigger && path) {
+    const width = 1200;
+    const height = 350;
+    const waveHeight = 30;
+    const waveLength = 300;
+    const points = 40;
+
+    let fillProgress = 0; // 0 to 1
+    let targetFillProgress = 0; // For smooth interpolation
+    let phase = 0;
+
+    function getWavePath(fillLevel, phase) {
+      let d = `M0,${height} L0,${fillLevel}`;
+      for (let i = 0; i <= points; i++) {
+        const x = (i / points) * width;
+        const theta = (i / points) * Math.PI * 2 * (width / waveLength) + phase;
+        const y = fillLevel - Math.sin(theta) * waveHeight;
+        d += ` L${x},${y}`;
+      }
+      d += ` L${width},${height} Z`;
+      return d;
+    }
+
+    // Initial state
+    path.setAttribute('d', getWavePath(height, 0));
+
+    // Animate fill level with ScrollTrigger
+    gsap.to({progress: 0}, {
+      progress: 1,
+      scrollTrigger: {
+        trigger: '#liquid-text-container',
+        start: 'top 80%',
+        end: 'top 30%',
+        scrub: 1,
+        scroller: document.querySelector('#main_container'),
+        onUpdate: self => {
+          targetFillProgress = self.progress;
+        }
+      }
+    });
+
+    // Animate the wave phase and smooth fill
+    function animateWave() {
+      fillProgress += (targetFillProgress - fillProgress) * 0.08; // Smooth interpolation
+      phase += 0.01; // Constant slow speed, always animating
+      const fillLevel = height - fillProgress * height;
+      path.setAttribute('d', getWavePath(fillLevel, phase));
+      requestAnimationFrame(animateWave);
+    }
+    animateWave();
+  } else {
+    console.warn('Main GAUCHER text: GSAP, ScrollTrigger, or path not found!');
+  }
+}
+
+// Footer GAUCHER text animation function
+function animateFooterGaucherText() {
+  const footerPath = document.getElementById('liquid-fill-path-footer');
+  console.log('footer liquid-fill-path found:', !!footerPath);
+  
+  if (window.gsap && window.ScrollTrigger && footerPath) {
+    const width = 2200;
+    const height = 550;
+    const waveHeight = 30;   // Decreased from 40 for less aggressive waves
+    const waveLength = 500;  // Increased from 300 for wider, gentler waves
+    const points = 100;      // Increased from 40 for a much smoother curve
+
+    let fillProgress = 0;
+    let targetFillProgress = 0;
+    let phase = 0;
+
+    function getFooterWavePath(fillLevel, phase) {
+      let d = `M0,${height} L0,${fillLevel}`;
+      for (let i = 0; i <= points; i++) {
+        const x = (i / points) * width;
+        const theta = (i / points) * Math.PI * 2 * (width / waveLength) + phase;
+        const y = fillLevel - Math.sin(theta) * waveHeight;
+        d += ` L${x},${y}`;
+      }
+      d += ` L${width},${height} Z`;
+      return d;
+    }
+
+    // Initial state
+    footerPath.setAttribute('d', getFooterWavePath(height, 0));
+
+    // Animate fill level with ScrollTrigger
+    gsap.to({progress: 0}, {
+      progress: 1,
+      scrollTrigger: {
+        trigger: '#liquid-text-container-footer',
+        start: 'top 80%',
+        end: 'top 30%',
+        scrub: 1,
+        scroller: document.querySelector('#main_container'),
+        onUpdate: self => {
+          targetFillProgress = self.progress;
+        }
+      }
+    });
+
+    // Animate the wave phase and smooth fill
+    function animateFooterWave() {
+      fillProgress += (targetFillProgress - fillProgress) * 0.04; // Decreased from 0.08 for smoother fill
+      phase += 0.01; // Decreased from 0.015 for slower wave movement
+      const fillLevel = height - fillProgress * height*2;
+      footerPath.setAttribute('d', getFooterWavePath(fillLevel, phase));
+      requestAnimationFrame(animateFooterWave);
+    }
+    animateFooterWave();
+  } else {
+    console.warn('Footer GAUCHER text: GSAP, ScrollTrigger, or path not found!');
+  }
+}
+
+// Page Loading Animation
+function initPageLoading() {
+    const loadingScreen = document.getElementById('loading-screen');
+    const progressFill = document.querySelector('.loading-progress-fill');
+    const percentageText = document.querySelector('.loading-percentage');
+    const loadingText = document.querySelector('.loading-text');
+
+    let progress = 0;
+    const targetProgress = 100;
+    const loadingSteps = [
+        { progress: 20, text: 'Initializing...' },
+        { progress: 40, text: 'Loading assets...' },
+        { progress: 60, text: 'Preparing content...' },
+        { progress: 80, text: 'Almost ready...' },
+        { progress: 100, text: 'Complete!' }
+    ];
+
+    function updateProgress() {
+        if (progress < targetProgress) {
+            progress += Math.random() * 3 + 1; // Random increment between 1-4
+            progress = Math.min(progress, targetProgress);
+            
+            // Update progress bar
+            progressFill.style.width = progress + '%';
+            percentageText.textContent = Math.round(progress) + '%';
+            
+            // Update loading text based on progress
+            const currentStep = loadingSteps.find(step => progress <= step.progress);
+            if (currentStep) {
+                loadingText.textContent = currentStep.text;
+            }
+            
+            // Continue animation
+            requestAnimationFrame(updateProgress);
+        } else {
+            // Loading complete
+            setTimeout(() => {
+                // Roll up the loading screen
+                loadingScreen.classList.add('loaded');
+                
+                // Remove loading screen after animation
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 1500);
+            }, 500);
+        }
+    }
+
+    // Start the loading animation
+    setTimeout(() => {
+        updateProgress();
+    }, 1000);
+}
+
+// Initialize loading animation when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    initPageLoading();
 }); 
+
+

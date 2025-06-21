@@ -14,8 +14,22 @@
     <script src="https://kit.fontawesome.com/e6d90fcee8.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./style.css" />
 </head>
-l
+
 <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">GAUCHER</div>
+            <div class="loading-progress-container">
+                <div class="loading-progress-bar">
+                    <div class="loading-progress-fill"></div>
+                </div>
+                <div class="loading-percentage">0%</div>
+            </div>
+            <div class="loading-text">Initializing...</div>
+        </div>
+    </div>
+
     <div id="main_container">
         <div class="container">
             <div class="header">
@@ -34,30 +48,35 @@ l
                     <div id="folll" class="first imgs">
                         <img id="mainimg_1" src="img/top (3).jpg" alt="">
                     </div>
-                    <div id="folll"  class="mid imgs">
+                    <div id="folll" class="mid imgs">
                         <img id="mainimg_1" src="img/top (2).jpg" alt="">
                     </div>
-                    <div id="folll"  class="last imgs">
+                    <div id="folll" class="last imgs">
                         <img id="mainimg_1" src="img/Downloader-La-834086.jpg" alt="">
                     </div>
                 </div>
                 <div class="boxes bottom">
                     <div class="txt maintxt" id="liquid-text-container">
-                      <svg id="liquid-text-svg" viewBox="0 0 1200 350" width="100%" height="100%" style="overflow:visible">
-                        <defs>
-                          <linearGradient id="liquid-gradient" x1="0%" y1="100%" x2="0%" y2="0%">
-                            <stop offset="0%" stop-color="#000" />
-                            <stop offset="100%" stop-color="#222" />
-                          </linearGradient>
-                          <clipPath id="liquid-clip">
-                            <text id="liquid-text" x="50%" y="70%" text-anchor="middle" font-family="'Fjalla One', sans-serif" font-size="360" font-weight="900" letter-spacing="-5" >GAUCHER</text>
-                          </clipPath>
-                        </defs>
-                        <g clip-path="url(#liquid-clip)">
-                          <path id="liquid-fill-path" fill="url(#liquid-gradient)" />
-                        </g>
-                        <text x="50%" y="70%" text-anchor="middle" font-family="'Fjalla One', sans-serif" font-size="360" font-weight="900" letter-spacing="-5" fill="none" stroke="rgba(0,0,0,0.10)" stroke-width="1">GAUCHER</text>
-                      </svg>
+                        <svg id="liquid-text-svg" viewBox="0 0 1200 350" width="100%" height="100%"
+                            style="overflow:visible">
+                            <defs>
+                                <linearGradient id="liquid-gradient" x1="0%" y1="100%" x2="0%" y2="0%">
+                                    <stop offset="0%" stop-color="#000" />
+                                    <stop offset="100%" stop-color="#222" />
+                                </linearGradient>
+                                <clipPath id="liquid-clip">
+                                    <text id="liquid-text" x="50%" y="70%" text-anchor="middle"
+                                        font-family="'Fjalla One', sans-serif" font-size="360" font-weight="900"
+                                        letter-spacing="-5">GAUCHER</text>
+                                </clipPath>
+                            </defs>
+                            <g clip-path="url(#liquid-clip)">
+                                <path id="liquid-fill-path" fill="url(#liquid-gradient)" />
+                            </g>
+                            <text x="50%" y="70%" text-anchor="middle" font-family="'Fjalla One', sans-serif"
+                                font-size="360" font-weight="900" letter-spacing="-5" fill="none"
+                                stroke="rgba(0,0,0,0.10)" stroke-width="1">GAUCHER</text>
+                        </svg>
                     </div>
 
                     <p>Learn More <i class="fa-solid fa-arrow-right"></i></p>
@@ -149,14 +168,14 @@ l
         <div class="container_fifth">
             <div class="subb_container">
                 <h1>TIMELESS</h1>
-                <div class="imgcct img_c1" data-scroll data-scroll-speed="2">
-                    <img src="img/frames_1.jpg" alt="" />
+                <div class="imgcct img_c3" data-scroll data-scroll-speed="2">
+                    <img src="img/frames_1-removebg-preview.jpg" alt="" />
                 </div>
-                <div class="imgcct img_c2" data-scroll data-scroll-speed="-1.5">
-                    <img src="img/frames_2.jpg" alt="" />
+                <div class="imgcct  img_c1" data-scroll data-scroll-speed="-1.5">
+                    <img src="img/photo-1696114865232-0461033f516a-removebg.png" alt="" />
                 </div>
-                <div class="imgcct img_c3" data-scroll data-scroll-speed="1.2">
-                    <img src="img/frame_3.jpg" alt="" />
+                <div class="imgcct img_c2" data-scroll data-scroll-speed="1.2">
+                    <img src="img/frame-11.jpg" alt="" />
                 </div>
                 <div class="imgcct img_c4" data-scroll data-scroll-speed="-2">
                     <img src="img/frame_7.jpg" alt="" />
@@ -172,8 +191,9 @@ l
                 <div class="img">
                     <img src="img/display-1.jpg" />
                     <div class="infoo">
-                        <h2>VERSATILITY PERSONALITY</h2>
-                        <p>stay ahead with gaucher, join our newsletter for exclusive updates on new arrival and special
+                        <h2 class="head_tw">VERSATILITY PERSONALITY</h2>
+                        <p class="head_tw_p">stay ahead with gaucher, join our newsletter for exclusive updates on new
+                            arrival and special
                             offers</p>
                         <div class="inp_container">
                             <input placeholder="YOUR EMAIL" />
@@ -224,14 +244,35 @@ l
                 <li>terms of service</li>
                 <li>privacy policy</li>
             </div>
-            <h1>GAUCHER</h1>
+            <div class="txt maintxt" id="liquid-text-container-footer">
+                <svg id="liquid-text-svg-footer" viewBox="0 0 2200 550" width="100%" height="100%"
+                    style="overflow:visible">
+                    <defs>
+                        <linearGradient id="liquid-gradient-footer" x1="0%" y1="100%" x2="0%" y2="0%">
+                            <stop offset="0%" stop-color="#000" />
+                            <stop offset="100%" stop-color="#222" />
+                        </linearGradient>
+                        <clipPath id="liquid-clip-footer">
+                            <text id="liquid-text-footer" x="50%" y="65%" text-anchor="middle"
+                                font-family="'Fjalla One', sans-serif" font-size="500" font-weight="900"
+                                letter-spacing="-5">GAUCHER</text>
+                        </clipPath>
+                    </defs>
+                    <g clip-path="url(#liquid-clip-footer)">
+                        <path id="liquid-fill-path-footer" fill="url(#liquid-gradient-footer)" />
+                    </g>
+                    <text x="50%" y="65%" text-anchor="middle" font-family="'Fjalla One', sans-serif"
+                        font-size="500" font-weight="900" letter-spacing="-5" fill="none" stroke="rgba(0,0,0,0.10)"
+                        stroke-width="1">GAUCHER</text>
+                </svg>
+            </div>
         </div>
     </div>
 
     <div class="circle" id="circle">
-          <!-- <div class="rotating-text">GAUCHER</div> -->
+        <!-- <div class="rotating-text">GAUCHER</div> -->
     </div>
-    
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"
         integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA=="
