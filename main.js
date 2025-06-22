@@ -30,10 +30,10 @@ document.addEventListener('mouseleave', (e) => {
     circle.style.transition = "0.05s linear"
 });
 
+animate(); 
 
 
 
-// animate(); 
 
 // Animate the liquid fill on scroll with a wavy path
 window.addEventListener('DOMContentLoaded', function() {

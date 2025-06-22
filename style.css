@@ -3,6 +3,8 @@
     padding: 0;
     box-sizing: border-box;
     user-select: none;
+    cursor: none !important;
+
 }
 
 :root {
@@ -13,16 +15,17 @@
 
 
 
-
 .circle {
     width: 80px;
     height: 80px;
-    border: 2px solid black;
+    border: 1px dotted rgba(0, 0, 0, 0.937);
     border-radius: 50%;
     position: absolute;
     pointer-events: none;
     transform: translate(-50%, -50%);
     overflow: hidden;
+    /* background-color: #ffffff6d; */
+    display: none;
 }
 
 
@@ -102,9 +105,7 @@
     width: 100%;
 }
 
-#main_container .container .header .smee>li:hover {
-    color: #888;
-}
+
 
 #main_container .container .header .LOGO {
     font-family: var(--font_secnd);
@@ -240,7 +241,7 @@ canvas {
     font-size: 310px;
     background-position: center;
     background-attachment: scroll;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3); 
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
 }
 
 
@@ -248,22 +249,22 @@ canvas {
 
 
 .txt.maintxt {
-  width: 100%;
-  height: 300px;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 100%;
+    height: 300px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #webgl-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 3;
-  pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
 }
 
 #main_container .container .body .bottom>p {
@@ -278,9 +279,6 @@ canvas {
 
 
 
-#main_container .container .body .bottom>p:hover {
-    color: grey;
-}
 
 #main_container .container .body .bottom>p i {
     transform: rotate(-45deg);
@@ -402,7 +400,6 @@ canvas {
     flex-direction: column;
     align-items: center;
     margin: 0 15px;
-    cursor: pointer;
     overflow: hidden;
     z-index: 3;
 }
@@ -689,7 +686,7 @@ canvas {
     transition: 0.1s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 
-.container_frth .boces .listing::after{
+.container_frth .boces .listing::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -701,11 +698,11 @@ canvas {
     transition: 0.2s ease-in-out;
 }
 
-.container_frth .boces .listing:hover::after{
+.container_frth .boces .listing:hover::after {
     height: 100%;
 }
 
-.container_frth .boces .listing:hover{
+.container_frth .boces .listing:hover {
     color: white;
 }
 
@@ -739,7 +736,7 @@ canvas {
     width: 100%;
     object-fit: cover;
     object-position: center var(--parallax-pos, 0%);
-    filter: grayscale(0);
+    filter: grayscale(1);
 }
 
 
@@ -967,7 +964,7 @@ canvas {
 }
 
 .container_svnth .left div li:hover {
-    color: #999;
+    color: white;
 }
 
 .container_svnth .right {
@@ -992,9 +989,6 @@ canvas {
     cursor: pointer;
 }
 
-.container_svnth .right .socialicons i:hover {
-    color: #999;
-}
 
 .container_svnth .right .imglib {
     width: calc(100% - 20%);
@@ -1050,9 +1044,7 @@ canvas {
     z-index: 3;
 }
 
-.last_container .subla li:hover {
-    color: #999;
-}
+
 
 .last_container {
     height: 500px;
@@ -1064,7 +1056,7 @@ canvas {
 }
 
 
-#liquid-text-container-footer > svg {
+#liquid-text-container-footer>svg {
     width: 100%;
     height: 400px;
     display: flex;
@@ -1078,37 +1070,39 @@ canvas {
 
 
 #liquid-text-svg {
-  width: 100%;
-  height: 100%;
-  display: block;
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
 /* Footer liquid text container styles */
 #liquid-text-container-footer {
-  width: 100%;
-  height: 550px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  bottom: -10%;
-  left: 0;
+    width: 100%;
+    height: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: -10%;
+    left: 0;
 }
+
 #liquid-text-svg-footer {
-  width: 100%;
-  height: 100%;
-  display: block;
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
 .mask-text-outer {
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: bottom;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
 }
+
 .mask-text-inner {
-  display: inline-block;
-  will-change: transform;
-  white-space: pre;
+    display: inline-block;
+    will-change: transform;
+    white-space: pre;
 }
 
 /* Loading Screen Styles */
@@ -1180,13 +1174,18 @@ canvas {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
     animation: shimmer 2s infinite;
 }
 
 @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
 }
 
 .loading-percentage {
@@ -1201,4 +1200,104 @@ canvas {
     font-size: 1rem;
     opacity: 0.8;
     transition: opacity 0.3s ease;
+}
+
+/* iOS Pointer Effect Styles */
+#ios-pointer {
+    position: fixed;
+    pointer-events: none;
+    z-index: 999999;
+    mix-blend-mode: difference;
+    backdrop-filter: blur(1px);
+    will-change: transform, width, height, border-radius;
+}
+
+/* Enhanced hover effects for elements with iOS pointer */
+.nav_opt li:hover,
+.listing:hover,
+.listitem:hover,
+.navs li:hover,
+.socialicons i:hover,
+.subla li:hover {
+    cursor: none;
+}
+
+/* Hide default cursor on interactive elements */
+.nav_opt li,
+.listing,
+.listitem,
+.navs li,
+.socialicons i,
+.subla li,
+p,
+h2,
+input,
+i,
+.description,
+.para,
+.descx,
+.head_tw_p {
+    cursor: none;
+}
+
+/* Special effect for collection items */
+.listing:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced pointer for images */
+.imgcct .ios-pointer {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.4) 60%, transparent 100%);
+    width: 60px;
+    height: 60px;
+    filter: blur(0.5px);
+}
+
+/*
+* GAUCHER - Advanced iOS-Style Pointer Styles
+*/
+
+/* 1. Hide the default system cursor */
+body,
+a,
+button,
+[role="button"] {
+    cursor: none;
+}
+
+/* 2. Style the custom dot cursor */
+#cursor-dot {
+    position: fixed;
+    top: -25px;
+    /* Offset to center the dot */
+    left: -25px;
+    width: 50px;
+    height: 50px;
+    background-color: #333;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 999999;
+    will-change: transform;
+    mix-blend-mode: exclusion;
+    filter: blur(0.5px);
+}
+
+/* 3. Style the highlighter element */
+#cursor-highlighter {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px;
+    /* Initial size */
+    height: 40px;
+    background-color: rgba(180, 180, 180, 0.1);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 999998;
+    opacity: 0;
+    will-change: width, height, transform, border-radius;
+
+    /* This creates the cool iOS-style inverted background (NO BLUR) */
+    -webkit-backdrop-filter: invert(1);
+    backdrop-filter: invert(1);
 }
